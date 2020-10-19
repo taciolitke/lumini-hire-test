@@ -23,15 +23,15 @@ namespace LuminiHire.Controllers
 
         public IActionResult Index()
         {
-            string cs = $"URI=file:{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}data{Path.DirectorySeparatorChar}lumini.db;Version=3;";
+            //string cs = $"URI=file:{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}data{Path.DirectorySeparatorChar}lumini.db;Version=3;";
             
-            using var con = new SQLiteConnection(cs);
-            con.Open();
+            //using var con = new SQLiteConnection(cs);
+            //con.Open();
 
-            using var cmd = con.CreateCommand();
+            //using var cmd = con.CreateCommand();
 
-            cmd.CommandText = "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)";
-            cmd.ExecuteNonQuery();
+            //cmd.CommandText = "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)";
+            //cmd.ExecuteNonQuery();
 
             return View();
         }

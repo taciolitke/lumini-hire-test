@@ -6,15 +6,15 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["src/LuminiHire.ElasticSearch.Seed/LuminiHire.ElasticSearch.Seed.csproj", "src/LuminiHire.ElasticSearch.Seed/"]
-COPY ["src/LuminiHire.Domain/LuminiHire.Domain.csproj", "src/LuminiHire.Domain/"]
-COPY ["src/LuminiHire.Infra/LuminiHire.Infra.csproj", "src/LuminiHire.Infra/"]
+COPY ["src/LuminiHire.Domain/*.csproj", "src/LuminiHire.Domain/"]
+COPY ["src/LuminiHire.Infra/*.csproj", "src/LuminiHire.Infra/"]
 RUN dotnet restore "src/LuminiHire.ElasticSearch.Seed/LuminiHire.ElasticSearch.Seed.csproj"
 COPY . .
-WORKDIR "/src/src/LuminiHire.ElasticSearch.Seed"
-RUN dotnet build "LuminiHire.ElasticSearch.Seed.csproj" -c Release -o /app/build
+WORKDIR "/src/LuminiHire.ElasticSearch.Seed"
+RUN dotnet build "src/LuminiHire.ElasticSearch.Seed.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "LuminiHire.ElasticSearch.Seed.csproj" -c Release -o /app/publish
+RUN dotnet publish "/src/LuminiHire.ElasticSearch.Seed.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

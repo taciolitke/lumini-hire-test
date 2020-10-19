@@ -25,7 +25,7 @@ namespace LuminiHire.ElasticSearch.Seed.IoC
             var configuration = ConfigurationBuilder();
 
             var settings = new ConnectionSettings(new Uri(configuration.GetSection("ElasticSearch:Uri").Value))
-                                        .DefaultIndex(configuration.GetSection("DefaultIndex").Value);
+                                        .DefaultIndex(configuration.GetSection("ElasticSearch:DefaultIndex").Value);
 
             serviceCollection
                 .AddSingleton<IElasticWriterRepository>(x => new ElasticRepository(settings));
@@ -41,8 +41,8 @@ namespace LuminiHire.ElasticSearch.Seed.IoC
         private static IConfigurationRoot ConfigurationBuilder()
         {
             return new ConfigurationBuilder()
-                                .SetBasePath(Directory.GetCurrentDirectory())
-                                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                                 .Build();
         }
     }

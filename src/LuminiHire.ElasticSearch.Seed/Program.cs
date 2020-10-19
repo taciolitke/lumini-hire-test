@@ -23,7 +23,7 @@ namespace LuminiHire.ElasticSearch.Seed
 
             stopwatch.Start();
 
-            var zipPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}sample_data{Path.DirectorySeparatorChar}";
+            var zipPath = $"{AppDomain.CurrentDomain.BaseDirectory}{Path.DirectorySeparatorChar}sample_data{Path.DirectorySeparatorChar}";
             var zipName = "CollegeScorecard_Raw_Data.zip";
 
             var seeder = ScoreCardSeed.Create(zipPath, zipName, _cacheService);
@@ -32,7 +32,7 @@ namespace LuminiHire.ElasticSearch.Seed
 
             stopwatch.Stop();
 
-            Console.WriteLine($"Tempo da carga: { stopwatch.ElapsedMilliseconds / 1000 } segundos.");
+            Console.WriteLine($"Tempo total da carga: { stopwatch.ElapsedMilliseconds / 1000 } segundos.");
             Console.WriteLine("Carga Finalizada!");
         }
     }

@@ -5,6 +5,7 @@ using LuminiHire.ElasticSearch.Seed.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
@@ -39,13 +40,10 @@ namespace LuminiHire.ElasticSearch.Seed.Seeds
         {
             using (ZipArchive archive = ZipFile.OpenRead(ZipFullPath))
             {
-                foreach (ZipArchiveEntry entry in archive.Entries)
-                {
-                    if (entry.FullName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase))
-                    {
-                        await SeedFile(entry);
-                    }
-                }
+                var files = archive.Entries.Where(x => x.Name.ToLower().EndsWith("csv"));
+                var tasks = files.Select(x => SeedFile(x));
+
+                await Task.WhenAll(tasks);
             }
         }
 
@@ -56,13 +54,29 @@ namespace LuminiHire.ElasticSearch.Seed.Seeds
                 StreamReader reader = new StreamReader(stream);
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    var records = csv.GetRecords<ScoreDataCsvModel>().ToList();
-
-                    Parallel.ForEach(records, (item) => {
-                        Repository.Set(item.ToScoreCard());
-                    });
+                    var records = csv.GetRecords<ScoreDataCsvModel>();
+                    await SendRecords(records, zipArchiveEntry.Name);
                 }
             }
+        }
+
+        private async Task<bool> SendRecords(IEnumerable<ScoreDataCsvModel> records, string filename)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            var recordsParsed = records.Select(x => x.ToScoreCard());
+
+            var status = await Repository.Set(recordsParsed);
+
+            stopwatch.Stop();
+
+            var statusLabel = status ? "sucesso": "falha";
+
+            Console.WriteLine($"Arquivo \"{filename}\" enviado com {statusLabel} em { stopwatch.ElapsedMilliseconds / 1000 } segundos.");
+
+            return status;
         }
     }
 
