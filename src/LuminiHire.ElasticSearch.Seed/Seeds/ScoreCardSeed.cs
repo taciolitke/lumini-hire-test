@@ -76,6 +76,9 @@ namespace LuminiHire.ElasticSearch.Seed.Seeds
 
             Console.WriteLine($"Arquivo \"{filename}\" enviado com {statusLabel} em { stopwatch.ElapsedMilliseconds / 1000 } segundos.");
 
+            if (!status)
+                await Program.VerifyConnectionElastic(Repository);
+
             return status;
         }
     }

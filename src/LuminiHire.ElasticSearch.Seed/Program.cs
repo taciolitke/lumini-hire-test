@@ -5,17 +5,30 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LuminiHire.ElasticSearch.Seed
 {
-    class Program
+    internal class Program
     {
+        internal static async Task VerifyConnectionElastic(IElasticWriterRepository _cacheService)
+        {
+            while (!await _cacheService.IsAlive())
+            {
+                Console.WriteLine("Aguardando ElasticSearch Iniciar...");
+                Thread.Sleep(5000);
+            }
+        }
+
         static async Task Main(string[] args)
         {
+
             ServiceProvider serviceProvider = DependencyResolve.Resolve();
 
             IElasticWriterRepository _cacheService = serviceProvider.GetService<IElasticWriterRepository>();
+
+            await VerifyConnectionElastic(_cacheService);
 
             Console.WriteLine("Carga Iniciada!");
 

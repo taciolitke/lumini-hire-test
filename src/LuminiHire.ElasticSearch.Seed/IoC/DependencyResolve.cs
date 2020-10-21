@@ -13,14 +13,14 @@ namespace LuminiHire.ElasticSearch.Seed.IoC
         public static ServiceProvider Resolve()
         {
             var serviceProvider = new ServiceCollection()
-                    .ConfigureServices()
+                    .ConfigureRepositories()
                     .AddConfigurationBuilder();
 
             return serviceProvider
                 .BuildServiceProvider();
         }
 
-        private static IServiceCollection ConfigureServices(this IServiceCollection serviceCollection)
+        private static IServiceCollection ConfigureRepositories(this IServiceCollection serviceCollection)
         {
             var configuration = ConfigurationBuilder();
 

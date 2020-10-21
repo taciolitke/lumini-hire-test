@@ -6,6 +6,6 @@ namespace LuminiHire.Domain.Repositories
 {
     public interface IElasticReaderRepository
     {
-        Task<IReadOnlyCollection<ScoreCard>> Get(string search, int skip, int take);
+        Task<IReadOnlyCollection<ScoreCard>> Get(long id, string query, int skip, int take);
     }
 }

@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LuminiHire.Models;
-using System.IO;
-using System.Data.SQLite;
-using Microsoft.Data.Sqlite;
 
 namespace LuminiHire.Controllers
 {
@@ -23,15 +16,8 @@ namespace LuminiHire.Controllers
 
         public IActionResult Index()
         {
-            //string cs = $"URI=file:{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}data{Path.DirectorySeparatorChar}lumini.db;Version=3;";
-            
-            //using var con = new SQLiteConnection(cs);
-            //con.Open();
 
-            //using var cmd = con.CreateCommand();
 
-            //cmd.CommandText = "CREATE TABLE cars(id INTEGER PRIMARY KEY, name TEXT, price INT)";
-            //cmd.ExecuteNonQuery();
 
             return View();
         }

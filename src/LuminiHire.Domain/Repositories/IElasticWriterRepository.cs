@@ -10,5 +10,7 @@ namespace LuminiHire.Domain.Repositories
         Task<bool> Set(ScoreCard entity);
 
         Task<bool> Set(IEnumerable<ScoreCard> entities);
+
+        Task<bool> IsAlive();
     }
 }

@@ -2,7 +2,63 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="container mt-3 search-box">
+        <h3>Search for the best scores</h3>
+
+        <form>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Person</span>
+                </div>
+                <input type="text" class="form-control" id="id-filter" placeholder="Id">
+            </div>
+        </form>
+
+        <form>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">City</span>
+                    <span class="input-group-text">Instituition</span>
+                    <span class="input-group-text">Zip</span>
+                </div>
+                <input type="text" id="query-filter" class="form-control">
+            </div>
+        </form>
+
+        <button type="button" id="search-btn" class="btn btn-outline-info">Seach</button>
+
+        <button id="load-search-btn" class="btn btn-primary d-none" disabled>
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Loading..
+        </button>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>City</th>
+                    <th>Instituition</th>
+                    <th>Zip</th>
+                </tr>
+            </thead>
+            <tbody id="search-result">
+            </tbody>
+        </table>
+
+        <ul class="pagination">
+            <li class="page-item page-item-previous">
+                <a class="page-link" id="item-previous" href="#">Previous</a>
+            </li>
+            <li class="page-item page-item-first active">
+                <a class="page-link" id="item-first" href="#">1</a>
+            </li>
+            <li class="page-item page-item-second">
+                <a class="page-link" id="item-second" href="#">2</a>
+            </li>
+            <li class="page-item page-item-third">
+                <a class="page-link" id="item-third" href="#">3</a>
+            </li>
+            <li class="page-item page-item-next">
+                <a class="page-link" id="item-next" href="#">Next</a>
+            </li>
+        </ul>
+    </div>

@@ -19,10 +19,7 @@ Após rodar subir o projeto com docker-compose é possivel acessar as seguintes 
 
 http://localhost:5000/
 
-# Dashboard - privado
-
-Usuario: kibana 
-Senha: kibana
+# Dashboard Kibana
 
 http://localhost:5601/app/kibana#/management/elasticsearch/index_management/indices
 
